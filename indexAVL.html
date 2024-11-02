@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVL Tree Visualizer</title>
+    <link rel="stylesheet" href="styleAVL.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AVL Tree</h1>
+        <div class="controls">
+            <input type="number" id="input-value" placeholder="Enter a number">
+            <button id="insert-btn">Insert</button>
+            <button id="delete-btn">Delete</button>
+            <button id="find-btn">Find</button>
+        </div>
+        
+        <!-- Balance information will appear here -->
+        <p id="balance-info" style="font-size: 18px; color: #ff0000; text-align: center; margin-top: 10px;"></p>
+        <p id="search-result" style="font-size: 18px; color: blue; text-align: center; margin-top: 10px;"></p>
+
+
+        <canvas id="tree-canvas" width="800" height="400"></canvas>
+    </div>
+
+    <script src="treeAVL.js"></script>
+</body>
+</html>

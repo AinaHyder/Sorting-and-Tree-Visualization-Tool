@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    color: white;
+}
+
+body {
+    background: #333; /* Dark background */
+}
+
+nav {
+    background: #1b1b1b;
+    width: 100%;
+}
+
+nav:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+nav ul {
+    list-style: none;
+    position: relative;
+    align-items: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 5px;
+    color: white;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    line-height: 70px;
+    font-size: 16px;
+    padding: 8px 15px;
+    text-align: center;
+}
+
+.clickable:hover {
+    border-radius: 5px;
+    border-bottom: 1px solid #4CAF50; /* Green border on hover */
+    cursor: pointer;
+}
+
+nav ul ul {
+    position: absolute;
+    top: 70px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+nav ul li:hover > ul {
+    opacity: 1;
+    visibility: visible;
+}
+
+nav ul ul li {
+    background-color: #222; /* Darker background for dropdown */
+    position: relative;
+    margin: 0px;
+    width: 200px;
+    float: none;
+    display: list-item;
+    border-bottom: 1px solid #4CAF50; /* Green border */
+}
+
+.range-input {
+    background: #555; /* Darker track for slider */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 2px;
+    outline: none;
+    border-radius: 2px;
+}
+
+.range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #4CAF50; /* Green thumb */
+    cursor: pointer;
+}
+
+.range-input::-moz-range-thumb {
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #4CAF50; /* Green thumb */
+    cursor: pointer;
+}

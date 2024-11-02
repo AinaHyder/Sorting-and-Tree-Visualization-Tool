@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heap Visualizer</title>
+    <link rel="stylesheet" href="styleHEAP.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Heap Visualizer</h1>
+        <div class="controls" id="heap-controls" style="display: none;">
+            <input type="number" id="input-value" placeholder="Enter a number">
+            <button id="insert-btn">Insert</button>
+            <button id="delete-btn">Delete</button>
+            <button id="find-btn">Find</button>
+        </div>
+        <div class="heap-type-toggle" id="heap-type-toggle">
+            <button id="min-heap-btn">Select Min Heap</button>
+            <button id="max-heap-btn">Select Max Heap</button>
+        </div>
+        <canvas id="heap-canvas"></canvas>
+        <p id="heap-info"></p>
+    </div>
+    <script src="treeHEAP.js"></script>
+</body>
+</html>

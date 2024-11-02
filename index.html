@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data Structures and Algorithms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Background Slideshow */
+        .bg-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100%;
+            animation: slide 30s infinite;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Keyframes for sliding effect */
+        @keyframes slide {
+            0% { background-image: url('daa.jfif.jpg'); }
+            100% { background-image: url('Master.jfif.jpg'); }
+           
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(68, 68, 68, 0.8); /* Semi-transparent background */
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: rgba(85, 85, 85, 0.8); /* Semi-transparent background */
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: rgba(102, 102, 102, 0.8); /* Semi-transparent background */
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+        footer {
+            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Slider -->
+    <div class="bg-slider"></div>
+
+    <header>
+        <h1>Data Structures and Algorithms</h1>
+    </header>
+
+    <nav>
+        <a href="indexAVL.html">AVL Trees</a>
+        <a href="indexBST.html">Binary Search Trees (BST)</a>
+        <a href="indexHeap.html">Heaps</a>
+        <a href="indexSorting.html">Sorting Algorithms</a>
+    </nav>
+
+    <main>
+        <h2>Welcome to the Data Structures and Algorithms Hub</h2>
+        <p>Explore the pages listed above to learn more about important data structures and algorithms.</p>
+    </main>
+
+    <footer>
+        <p>&copy; Project Of Data Structures and Algorithms</p>
+    </footer>
+
+</body>
+</html>

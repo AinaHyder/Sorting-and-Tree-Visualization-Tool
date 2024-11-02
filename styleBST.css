@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333; /* Dark background */
+    color: #f4f4f4; /* Light text */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+h1 {
+    color: #4CAF50; /* Green heading to match the theme */
+    margin-bottom: 20px;
+}
+
+.controls input, .controls button, .traversal-controls button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    background-color: #555; /* Dark input and button background */
+    color: #fff; /* White text */
+    border: 1px solid #777; /* Border for input fields */
+    border-radius: 5px;
+}
+
+.controls button:hover, .traversal-controls button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+#tree-canvas {
+    border: 1px solid #4CAF50; /* Green border for the canvas */
+    margin-top: 20px;
+    background-color: #222; /* Dark background for canvas */
+}
+
+#traversal-output {
+    font-weight: bold;
+    color: #4CAF50; /* Green text for traversal output */
+    font-size: 18px;
+    margin-bottom: 20px;
+}

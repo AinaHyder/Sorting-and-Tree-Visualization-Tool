@@ -1,0 +1,78 @@
+/* Body styling to match dark theme */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #333;  /* Dark background */
+  color: #f4f4f4; /* Light text */
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: white;
+  background-color: #444;  /* Darker header background */
+  padding: 10px;
+  margin: 0;
+  font-size: 30px;
+}
+
+.container {
+  margin: 20px auto;
+  width: 800px;
+}
+
+input[type="number"] {
+  padding: 10px;
+  font-size: 16px;
+  width: 100px;
+  margin-right: 10px;
+  background-color: #555; /* Dark input field */
+  color: #fff;
+  border: 1px solid #777;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50; /* Button color to match */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+canvas {
+  border: 2px solid #4CAF50; /* Green border matching theme */
+  background-color: #222; /* Darker canvas background */
+  display: block;
+  margin: 20px auto;
+}
+
+#balance-info {
+  font-size: 18px;
+  color: #d8d3d3;  /* Light red for balance info */
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Optional: styling for balance messages */
+#balance-info {
+  color: #ebebeb;  /* Light red color for emphasis */
+  font-weight: bold;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+/* Additional styling for search results */
+#search-result {
+  color: #4CAF50; /* Green for successful search results */
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+}

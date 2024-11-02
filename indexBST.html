@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BST Visualizer</title>
+    <link rel="stylesheet" href="styleBST.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Binary Search Tree (BST)</h1>
+
+        <!-- Traversal Output moved above the controls -->
+        <p id="traversal-output"></p>
+
+        <div class="controls">
+            <input type="number" id="input-value" placeholder="Enter a number">
+            <button id="insert-btn">Insert</button>
+            <button id="delete-btn">Delete</button>
+            <button id="find-btn">Find</button>
+        </div>
+
+        <div class="traversal-controls">
+            <button id="inorder-btn">In-Order</button>
+            <button id="preorder-btn">Pre-Order</button>
+            <button id="postorder-btn">Post-Order</button>
+        </div>
+        
+        <canvas id="tree-canvas"></canvas>
+    </div>
+    <script src="treeBST.js"></script>
+</body>
+</html>
