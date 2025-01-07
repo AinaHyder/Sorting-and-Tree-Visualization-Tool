@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Visualizations</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://example.com/your-background-image.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white; /* Text color to ensure readability */
+            text-align: center;
+        }
+
+        .screen {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background to improve readability */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        .input-field {
+            margin: 10px;
+            padding: 10px;
+            font-size: 14px;
+            width: 250px;
+        }
+
+        .dp-table {
+            margin: 20px auto;
+            width: 80%;
+            border-collapse: collapse;
+            background-color: rgba(68, 59, 59, 0.8); /* Table background for contrast */
+        }
+
+        .dp-table th, .dp-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .dp-table th {
+            background-color: #4caf50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="welcome-screen" class="screen">
+        <h1>Algorithm Visualizations</h1>
+        <p>Select an algorithm to visualize:</p>
+        <button class="button" onclick="selectAlgorithm('matrixChain')">Matrix Chain Multiplication</button>
+        <button class="button" onclick="selectAlgorithm('rodCutting')">Rod Cutting</button>
+    </div>
+
+    <div id="visualization-screen" class="screen" style="display: none;">
+        <!-- Controls for Matrix Chain Multiplication -->
+        <div id="matrix-chain-controls" class="controls" style="display: none;">
+            <h2>Matrix Chain Multiplication</h2>
+            <label for="matrix-chain-input">Enter dimensions (comma-separated, e.g., 30,35,15,5,10): </label>
+            <input type="text" id="matrix-chain-input" class="input-field" placeholder="Dimensions">
+            <button class="button" onclick="visualizeMatrixChain()">Visualize Matrix Chain Multiplication</button>
+        </div>
+        
+        <!-- Controls for Rod Cutting -->
+        <div id="rod-cutting-controls" class="controls" style="display: none;">
+            <h2>Rod Cutting</h2>
+            <label for="rod-cutting-input">Enter rod prices (comma-separated, e.g., 1,5,8,9): </label>
+            <input type="text" id="rod-cutting-input" class="input-field" placeholder="Rod prices">
+            <button class="button" onclick="visualizeRodCutting()">Visualize Rod Cutting</button>
+        </div>
+
+        <!-- Dynamic table for DP results -->
+        <table class="dp-table" id="dp-table"></table>
+
+        <!-- Button to go back to the welcome screen -->
+        <button class="button" onclick="showWelcomeScreen()">Back to Home</button>
+    </div>
+
+    <script>
+        // JavaScript functions
+
+        // Function to show the welcome screen
+        function showWelcomeScreen() {
+            document.getElementById("welcome-screen").style.display = "block";
+            document.getElementById("visualization-screen").style.display = "none";
+            document.getElementById("matrix-chain-controls").style.display = "none";
+            document.getElementById("rod-cutting-controls").style.display = "none";
+        }
+
+        // Function to select an algorithm and show the respective controls
+        function selectAlgorithm(algorithm) {
+            document.getElementById("welcome-screen").style.display = "none";
+            document.getElementById("visualization-screen").style.display = "block";
+            
+            if (algorithm === "matrixChain") {
+                document.getElementById("matrix-chain-controls").style.display = "block";
+                document.getElementById("rod-cutting-controls").style.display = "none";
+            } else if (algorithm === "rodCutting") {
+                document.getElementById("matrix-chain-controls").style.display = "none";
+                document.getElementById("rod-cutting-controls").style.display = "block";
+            }
+        }
+
+        // Function to visualize Matrix Chain Multiplication
+        function visualizeMatrixChain() {
+            const input = document.getElementById("matrix-chain-input").value;
+            const dimensions = input.split(",").map(Number);
+        
+            if (dimensions.length < 2) {
+                alert("Please enter at least two dimensions.");
+                return;
+            }
+        
+            const n = dimensions.length - 1;
+            const dp = Array(n).fill(null).map(() => Array(n).fill(0));
+            const split = Array(n).fill(null).map(() => Array(n).fill(0));
+        
+            for (let l = 2; l <= n; l++) {
+                for (let i = 0; i <= n - l; i++) {
+                    const j = i + l - 1;
+                    dp[i][j] = Infinity;
+                    for (let k = i; k < j; k++) {
+                        const q = dp[i][k] + dp[k + 1][j] + dimensions[i] * dimensions[k + 1] * dimensions[j + 1];
+                        if (q < dp[i][j]) {
+                            dp[i][j] = q;
+                            split[i][j] = k;
+                        }
+                    }
+                }
+            }
+        
+            const table = document.getElementById("dp-table");
+            table.innerHTML = "";
+        
+            // Create top header row
+            let headerRow = "<tr><th></th>";
+            for (let i = 0; i < n; i++) {
+                headerRow += <th>${String.fromCharCode(65 + i)}</th>;
+            }
+            headerRow += "</tr>";
+            table.innerHTML += headerRow;
+        }
+           // Create table rows with side labels and DP values
+for (let i = 0; i < n; i++) {
+    // Start a table row with a side label
+    let row = `<tr><th>${String.fromCharCode(65 + i)}</th>`;
+    for (let j = 0; j < n; j++) {
+        // Add table data cells with DP values or empty strings
+        row += `<td>${i <= j ? dp[i][j] : ""}</td>`;
+    }
+    // Close the table row
+    row += `</tr>`;
+    // Append the constructed row to the table's innerHTML
+    table.innerHTML += row;
+}
+
+        
+        // Function to visualize Rod Cutting
+        function visualizeRodCutting() {
+            const input = document.getElementById("rod-cutting-input").value;
+            const prices = input.split(",").map(Number);
+
+            if (prices.length < 1) {
+                alert("Please enter valid rod prices for each length.");
+                return;
+            }
+
+            const n = prices.length;
+            const dp = Array(n + 1).fill(0);
+
+            for (let i = 1; i <= n; i++) {
+                let maxVal = -Infinity;
+                for (let j = 1; j <= i; j++) {
+                    maxVal = Math.max(maxVal, prices[j - 1] + dp[i - j]);
+                }
+                dp[i] = maxVal;
+            }
+
+            const table = document.getElementById("dp-table");
+            table.innerHTML = "<tr><th>Length</th><th>Max Revenue</th></tr>";
+            for (let i = 1; i <= n; i++) {
+                const row = <tr><td>${i}</td><td>${dp[i]}</td></tr>;
+                table.innerHTML += row;
+            }
+        }
+
+        // Initialize welcome screen on page load
+        window.onload = showWelcomeScreen;
+    </script>
+</body>
+</html>
+        

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convex Hull with Arrows and Grid</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Body styling for a dark theme */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #333; /* Dark background */
+      color: #f4f4f4; /* Light text */
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1, h3 {
+      color: white; /* Light text for headers */
+      background-color: #444; /* Darker header background */
+      padding: 10px;
+      margin: 0 0 20px 0;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #444; /* Dark container background */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50; /* Green button color */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .canvas-container {
+      position: relative;
+      height: 500px;
+      width: 100%;
+      border: 2px solid #4CAF50; /* Green border matching theme */
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background-image: linear-gradient(#555 1px, transparent 1px),
+                        linear-gradient(90deg, #555 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-color: #222; /* Dark canvas background */
+    }
+
+    .point {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #4CAF50; /* Green points */
+      transform: translate(-50%, -50%);
+    }
+
+    .arrow-line {
+      position: absolute;
+      background-color: #4CAF50; /* Green arrow lines */
+      height: 2px;
+      transform-origin: 0 50%;
+    }
+
+    .arrowhead {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 10px solid #4CAF50; /* Green arrowhead */
+      transform-origin: center;
+    }
+
+    ul#pointList {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul#pointList li {
+      background-color: #555; /* Darker list background */
+      color: #f4f4f4; /* Light text */
+      padding: 5px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+
+    ul#pointList li:hover {
+      background-color: #666; /* Slightly lighter on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Convex Hull with Graham Scale</h1>
+    <p class="lead">Click on the grid to add points. The convex hull of the points will be displayed with arrows.</p>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="canvas-container" id="canvas"></div>
+      </div>
+      <div class="col-md-4">
+        <button id="clearPoints" class="btn btn-danger btn-lg mb-3">Clear Points</button>
+        <h3>Points:</h3>
+        <ul id="pointList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const points = [];
+    const canvas = document.getElementById('canvas');
+    const pointList = document.getElementById('pointList');
+
+    canvas.addEventListener('click', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      addPoint(x, y);
+    });
+
+    function addPoint(x, y) {
+      points.push({ x, y });
+      drawPoint(x, y);
+      const pointElem = document.createElement('li');
+      pointElem.textContent = `(${x.toFixed(1)}, ${y.toFixed(1)})`;
+      pointList.appendChild(pointElem);
+      drawConvexHull();
+    }
+
+    function drawPoint(x, y) {
+      const point = document.createElement('div');
+      point.className = 'point';
+      point.style.left = `${x}px`;
+      point.style.top = `${y}px`;
+      canvas.appendChild(point);
+    }
+
+    function drawConvexHull() {
+      if (points.length < 3) return; // Convex hull requires at least 3 points
+
+      const hull = grahamScan(points);
+
+      // Clear previous hull
+      const lines = document.querySelectorAll('.arrow-line, .arrowhead');
+      lines.forEach(line => line.remove());
+
+      // Draw arrows for the hull
+      for (let i = 0; i < hull.length; i++) {
+        const p1 = hull[i];
+        const p2 = hull[(i + 1) % hull.length];
+        drawArrow(p1, p2);
+      }
+    }
+
+    function drawArrow(p1, p2) {
+      const dx = p2.x - p1.x;
+      const dy = p2.y - p1.y;
+      const length = Math.sqrt(dx * dx + dy * dy);
+      const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+      // Draw the line
+      const arrowLine = document.createElement('div');
+      arrowLine.className = 'arrow-line';
+      arrowLine.style.width = `${length}px`;
+      arrowLine.style.left = `${p1.x}px`;
+      arrowLine.style.top = `${p1.y}px`;
+      arrowLine.style.transform = `rotate(${angle}deg)`;
+      canvas.appendChild(arrowLine);
+
+      // Draw the arrowhead
+      const arrowhead = document.createElement('div');
+      arrowhead.className = 'arrowhead';
+      arrowhead.style.left = `${p2.x}px`;
+      arrowhead.style.top = `${p2.y}px`;
+      arrowhead.style.transform = `rotate(${angle}deg)`;
+      canvas.appendChild(arrowhead);
+    }
+
+    function grahamScan(points) {
+      const start = points.reduce((lowest, point) =>
+        point.y < lowest.y || (point.y === lowest.y && point.x < lowest.x) ? point : lowest, points[0]);
+
+      const sorted = points.slice().sort((a, b) => {
+        const angleA = Math.atan2(a.y - start.y, a.x - start.x);
+        const angleB = Math.atan2(b.y - start.y, b.x - start.x);
+        return angleA - angleB || a.x - b.x;
+      });
+
+      const hull = [];
+      for (const point of sorted) {
+        while (hull.length >= 2 &&
+          crossProduct(hull[hull.length - 2], hull[hull.length - 1], point) <= 0) {
+          hull.pop();
+        }
+        hull.push(point);
+      }
+      return hull;
+    }
+
+    function crossProduct(o, a, b) {
+      return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+    }
+
+    document.getElementById('clearPoints').addEventListener('click', () => {
+      points.length = 0;
+      pointList.innerHTML = '';
+      canvas.innerHTML = '';
+    });
+  </script>
+</body>
+</html>
